@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ワード辞書編集</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+
+<body>
+<div class="game-container">
+    <h1>ワード辞書</h1>
+    <ul id="wordList"></ul>
+
+    <input type="text" id="newWord" placeholder="単語を追加" />
+    <button id="addBtn">追加</button>
+    <button onclick="location.href='index.html'">ゲームに戻る</button>
+</div>
+
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
+
+<script>
+    const firebaseConfig = {
+        apiKey: "",
+        authDomain: "",
+        databaseURL: "",
+        projectId: "",
+        storageBucket: "",
+        messagingSenderId: "",
+        appId: "",
+        measurementId: ""
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+
+    async function loadWords() {
+        const list = document.getElementById("wordList");
+        list.innerHTML = "";
+
+        const snapshot = await db.ref("words").once("value");
+        const data = snapshot.val();
+
+    if (data) {
+        Object.entries(data).forEach(([key, word]) => {
+            const li = document.createElement("li");
+            li.innerHTML = `${word} <button onclick="deleteWord('${key}')">削除</button>`;
+            list.appendChild(li);
+        });
+    }  
+    }
+
+    async function addWord() {
+        const input = document.getElementById("newWord");
+        const word = input.value.trim();
+        if (!word) return alert("単語を入力してください");
+
+        await db.ref("words").push(word);
+        input.value = "";
+        loadWords();
+    }
+
+    async function deleteWord(key) {
+        if (!confirm("本当に削除しますか？")) return;
+        await db.ref(`words/${key}`).remove();
+        loadWords();
+    }
+
+    document.getElementById("addBtn").addEventListener("click", addWord);
+    loadWords();
+</script>
+</body>
+</html>
+

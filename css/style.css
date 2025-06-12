@@ -1,0 +1,74 @@
+/* 全体のベース */
+body {
+    margin: 0;
+    font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+    background: linear-gradient(145deg, #ffecd2, #fcb69f); /* Sunset風のグラデーション */
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* 中央コンテナ */
+.game-container {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    width: 90%;
+    max-width: 500px;
+    backdrop-filter: blur(8px);
+    border: 1px solid #fcb69f;
+}
+
+/* タイトル類 */
+h1, h2 {
+    margin: 15px 0;
+    color: #444;
+}
+
+/* 出題ワード表示 */
+#start {
+    font-size: 2em;
+    letter-spacing: 4px;
+    color: #ff6f61; /* Sunsetオレンジ */
+}
+
+/* 押したキー表示 */
+#push {
+    font-size: 1.5em;
+    color: #0077b6; /* California blue */
+}
+
+/* タイマー・ミス表示 */
+.stats {
+    margin-top: 20px;
+    font-size: 1.1em;
+    color: #5c5c5c;
+}
+
+/* スタートボタン */
+button {
+    padding: 12px 30px;
+    font-size: 1.1em;
+    background: #f77f00; /* 元気なオレンジ */
+    color: white;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+/* ワード辞書ボタン */
+.button-row {
+    display: flex;
+    justify-content: center;
+    gap: 16px; /* ボタンの間にスペース */
+    margin-bottom: 20px;
+}
+
+button:hover {
+    background: #d65a00;
+}
